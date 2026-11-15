@@ -5,7 +5,7 @@ The guidance that immigration authorities publish for their own case officers, c
 | Repository | Jurisdiction | Guidance files | Country-of-origin reports |
 |---|---|---|---|
 | [at](https://github.com/immigration-guidelines/at) | Austria | 4 | 331 |
-| [au](https://github.com/immigration-guidelines/au) | Australia | – | 0 |
+| [au](https://github.com/immigration-guidelines/au) | Australia | – | 23 |
 | [be](https://github.com/immigration-guidelines/be) | Belgium | 181 | 444 |
 | [ca](https://github.com/immigration-guidelines/ca) | Canada | 1,572 | 879 |
 | [ch](https://github.com/immigration-guidelines/ch) | Switzerland | 331 | 148 |
@@ -21,9 +21,9 @@ The guidance that immigration authorities publish for their own case officers, c
 | [no](https://github.com/immigration-guidelines/no) | Norway | 872 | 1,167 |
 | [nz](https://github.com/immigration-guidelines/nz) | New Zealand | 1,822 | – |
 | [pt](https://github.com/immigration-guidelines/pt) | Portugal | 341 | – |
-| [se](https://github.com/immigration-guidelines/se) | Sweden | 93 | 119 |
+| [se](https://github.com/immigration-guidelines/se) | Sweden | 103 | 119 |
 | [uk](https://github.com/immigration-guidelines/uk) | United Kingdom | 635 | 177 |
-| [usa](https://github.com/immigration-guidelines/usa) | United States | 216 | 770 |
+| [usa](https://github.com/immigration-guidelines/usa) | United States | 346 | 770 |
 
 ## Berlin
 
