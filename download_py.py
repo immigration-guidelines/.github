@@ -78,8 +78,8 @@ RES_KEEP = {
                  "parties under notarial power)", ""),
     "563/2016": ("procedural act", "procedure for the entry of foreigners who are public figures", ""),
     "543/2016": ("procedural act", "visa requirement for entry into the country", ""),
-    "296/2016": ("guidance", "approves the manual of procedures for foreign victims of trafficking in "
-                 "persons", ""),
+    "296/2016": ("procedural act", "approves the manual of procedures for foreign victims of trafficking in "
+                 "persons (residence for victims: steps and time limits for each department)", ""),
     "062/2019": ("procedural act", "procedure and requirements for temporary residence under Law 978/96 for "
                  "Venezuelan citizens", ""),
     "295/2016": ("procedural act", "procedure for receiving documents at the registry of the general secretariat "

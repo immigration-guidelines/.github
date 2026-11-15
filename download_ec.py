@@ -27,6 +27,7 @@ import fcntl
 import html
 import json
 import re
+import ssl
 import subprocess
 import sys
 import time
@@ -53,7 +54,81 @@ U = "https://www.cancilleria.gob.ec/wp-content/uploads/"
 # Titles are taken from the file names (the documents could not be read); dates are the
 # upload month unless the name gives a date.
 MREMH = [
-@@LIST@@
+    ("20141005051600", "2013/03/acuerdo_337_derecho_estudio_refugiados_01.pdf",
+     "2013-03", "procedural act", 'Acuerdo 337: derecho a la educación de personas refugiadas',
+     'Agreement 337: right to education of refugees', "Acuerdo-337-derecho-estudio-refugiados"),
+    ("20161009231031", "2013/11/proceso-naturalizaciones.pdf",
+     "2013-11", "guidance", 'Proceso de naturalizaciones',
+     'Naturalisation process (process description)', "Proceso-naturalizaciones"),
+    ("20161009231212", "2013/11/proceso-transferencia-visa.pdf",
+     "2013-11", "guidance", 'Proceso de transferencia de visa',
+     'Visa transfer process (process description)', "Proceso-transferencia-visa"),
+    ("20140714074047", "2014/04/Acuerdo_ministerial_no._000031_que_norma_la_aplicaci%C3%93n_del_acuerdo_sobre_residencia_del_mercosur.pdf",
+     "2014-04", "procedural act", 'Acuerdo Ministerial N.° 000031 que norma la aplicación del Acuerdo sobre Residencia del MERCOSUR',
+     'Ministerial Agreement 000031 regulating the application of the MERCOSUR Residence Agreement', "AM-000031-aplicacion-residencia-MERCOSUR"),
+    ("20220303214548", "2015/04/INSTRUCTIVOS-DE-PROCESOS-DE-LA-SUBSECRETARIA-DE-ASUNTOS-MIGRATORIOS.pdf",
+     "2015-04", "guidance", 'Instructivos de procesos de la Subsecretaría de Asuntos Migratorios',
+     'Process instructions of the Under-Secretariat for Migration Affairs', "Instructivos-procesos-Subsecretaria-Asuntos-Migratorios"),
+    ("20220120040352", "2018/09/acuerdo_ministerial_242_pasaportes_venezolanos.pdf",
+     "2018-09", "procedural act", 'Acuerdo Ministerial 242: pasaportes venezolanos',
+     'Ministerial Agreement 242: Venezuelan passports', "AM-242-pasaportes-venezolanos"),
+    ("20220223135705", "2018/09/acuerdo_ministerial_243_excepcion_pasaporte_ninios_venezolanos.pdf",
+     "2018-09", "procedural act", 'Acuerdo Ministerial 243: excepción de pasaporte para niños venezolanos',
+     'Ministerial Agreement 243: passport exemption for Venezuelan children', "AM-243-excepcion-pasaporte-ninos-venezolanos"),
+    ("20210511043807", "2018/09/acuerdo_ministerial_244_de_documento_de_identidad_venezolanos.pdf",
+     "2018-09", "procedural act", 'Acuerdo Ministerial 244: documento de identidad de ciudadanos venezolanos',
+     'Ministerial Agreement 244: identity documents of Venezuelan nationals', "AM-244-documento-identidad-venezolanos"),
+    ("20220119014033", "2018/11/procedimiento.pdf",
+     "2018-11", "guidance", 'Procedimiento (documento sin título en el nombre del archivo)',
+     'Procedure (document whose subject the file name does not give)', "Procedimiento-2018-11"),
+    ("20240617015133", "2019/02/ACUERDO-ANTECEDENTES-VENEZUELA.pdf",
+     "2019-02", "procedural act", 'Acuerdo: antecedentes penales de ciudadanos venezolanos',
+     'Agreement: criminal-record certificates of Venezuelan nationals', "Acuerdo-antecedentes-Venezuela"),
+    ("20211204075137", "2019/07/Instructivo-Visas-Vacaciones-y-Trabajo-Ecuador-Australia-final.pdf",
+     "2019-07", "guidance", 'Instructivo de visas de vacaciones y trabajo Ecuador-Australia',
+     'Instructions on Ecuador-Australia working-holiday visas', "Instructivo-visas-vacaciones-trabajo-Australia"),
+    ("20210511030425", "2019/07/Protocolo-para-acreditar-medios-de-vida-li%CC%81citos.pdf",
+     "2019-07", "guidance", 'Protocolo para acreditar medios de vida lícitos',
+     'Protocol for proving lawful means of subsistence (visa applications)', "Protocolo-medios-de-vida-licitos"),
+    ("20210803235819", "2019/08/acuaerdo_interministerial_000003_visas_a_nacionales_de_11_pai%CC%81ses_de_africa_y_asia.pdf",
+     "2019-08", "procedural act", 'Acuerdo Interministerial 000003: visas para nacionales de 11 países de África y Asia',
+     'Inter-ministerial Agreement 000003: visa requirement for nationals of 11 African and Asian countries', "AI-000003-visas-11-paises-Africa-Asia"),
+    ("20200715042321", "2019/09/acuerdo_ministerial_103_medidas_migratorias_a_favor_de_ciudadanos_venezolanos0169571001567716139.pdf",
+     "2019-09", "procedural act", 'Acuerdo Ministerial 103: medidas migratorias a favor de ciudadanos venezolanos',
+     'Ministerial Agreement 103: migration measures for Venezuelan nationals (amnesty, humanitarian visa)', "AM-103-medidas-migratorias-venezolanos"),
+    ("20200321222105", "2020/03/ACUERDO-INTERMINISTERIAL-0000001.pdf.pdf.pdf",
+     "2020-03", "procedural act", 'Acuerdo Interministerial 0000001 (2020)',
+     'Inter-ministerial Agreement 0000001 of 2020 (COVID-19 period)', "AI-0000001-2020"),
+    ("20220119155411", "2020/06/protocolo-para-acreditar-medios-de-vida-li%CC%81citos0045269001593444369.pdf",
+     "2020-06", "guidance", 'Protocolo para acreditar medios de vida lícitos (versión 2020)',
+     'Protocol for proving lawful means of subsistence (2020 version)', "Protocolo-medios-de-vida-licitos-2020"),
+    ("20210720135314", "2021/07/lineamiento_ingreso_al_pais_-_12-07-2021-signed-2-signed-signed0254473001626112749_210718_205712-1.pdf",
+     "2021-07-12", "guidance", 'Lineamiento de ingreso al país (12-07-2021)',
+     'Guideline on entry into the country (12 July 2021, COVID-19)', "Lineamiento-ingreso-al-pais"),
+    ("20210917124836", "2021/09/INSTRUCTIVO-PARA-EL-ACCESO-DE-INTERPRETACIO%CC%81N-EN-EL-PROCESO-PARA-LA-DETERMINACIO%CC%81N-DE-LA-CONDICIO%CC%81N-DE-REFUGIO-Y-APATRIDIA-signed.pdf",
+     "2021-09", "guidance", 'Instructivo para el acceso de interpretación en el proceso para la determinación de la condición de refugio y apatridia',
+     'Instructions on access to interpretation in refugee and statelessness determination', "Instructivo-interpretacion-determinacion-refugio-apatridia"),
+    ("20261018040120", "2023/09/230131_AM-0006_instructivo-determinacion-condicion-refugiado-y-apatrida.pdf",
+     "2023-01-31", "procedural act", 'Acuerdo Ministerial 0006: Instructivo para el procedimiento de determinación de la condición de personas refugiadas y apátridas en el Ecuador',
+     'Ministerial Agreement 0006: instructions on the procedure for determining refugee and stateless status (binding on the officials who decide)', "AM-0006-instructivo-determinacion-refugiado-apatrida"),
+    ("20170215030449", "downloads/2012/06/7-Manual-Proceso-Especiales.pdf",
+     "2012-06", "guidance", 'Manual de procesos especiales',
+     'Manual of special processes', "Manual-procesos-especiales"),
+    ("20161009231158", "downloads/2013/08/DME-SP02-gestion-visa-no-inmigrante.pdf",
+     "2013-08", "guidance", 'DME-SP02: Gestión de visa de no inmigrante (subproceso)',
+     'DME-SP02: handling of non-immigrant visas (sub-process document)', "DME-SP02-gestion-visa-no-inmigrante"),
+    ("20161009231205", "downloads/2013/08/DME-SP04-gestion-visa-inmigrante.pdf",
+     "2013-08", "guidance", 'DME-SP04: Gestión de visa de inmigrante (subproceso)',
+     'DME-SP04: handling of immigrant visas (sub-process document)', "DME-SP04-gestion-visa-inmigrante"),
+    ("20161009231241", "downloads/2013/08/DME-SP07-cancelacion-visa.pdf",
+     "2013-08", "guidance", 'DME-SP07: Cancelación de visa (subproceso)',
+     'DME-SP07: visa cancellation (sub-process document)', "DME-SP07-cancelacion-visa"),
+    ("20250605104513", "downloads/2021/07/mremh-dvn-2021-0313-m._acuerdo_6__procedimiento_para_la_regularizaci%C3%B3n.pdf",
+     "2021-07", "procedural act", 'MREMH-DVN-2021-0313-M: Acuerdo 6, procedimiento para la regularización',
+     'MREMH-DVN-2021-0313-M: Agreement 6, procedure for regularisation', "Acuerdo-6-procedimiento-regularizacion"),
+    ("20240225140550", "downloads/2021/07/mremh-dvn-2021-0313-m._acuerdo_85_medios_l%C3%ADcitos.pdf",
+     "2021-07", "procedural act", 'MREMH-DVN-2021-0313-M: Acuerdo 85, medios lícitos de vida',
+     'MREMH-DVN-2021-0313-M: Agreement 85, lawful means of subsistence', "Acuerdo-85-medios-licitos"),
 ]
 
 # Known to exist, not fetched (besides the list above): (title, date, url, reason)
@@ -74,6 +149,7 @@ blocked = {}
 errors = {}
 last_hit = {}
 rules = {}
+contexts = {}           # host -> SSL context with the intermediate the server fails to send
 failures = []
 rows = []
 stats = {"new": 0}
@@ -130,7 +206,7 @@ def request(url, data=None):
         wait(host)
         try:
             with urllib.request.urlopen(urllib.request.Request(quote_url(url), data=data, headers=headers),
-                                        timeout=180) as r:
+                                        timeout=180, context=contexts.get(host)) as r:
                 errors[host] = 0
                 return r.read(), r.headers.get("Content-Type", "")
         except urllib.error.HTTPError as e:
@@ -148,21 +224,67 @@ def request(url, data=None):
             return (f"connection error: {e}",)
 
 
-def load_robots(host):
+def completed_context(host):
+    """The server does not send its intermediate certificate (www.cancilleria.gob.ec, 2026-11). Do what a
+    browser does: read the "CA Issuers" (AIA) address in the server's own certificate, fetch that
+    intermediate (robots.txt of the CA's host read first) and add it to the system trust store. The chain
+    is still verified up to a root this machine trusts, and the host name is still checked; verification
+    is never switched off. Returns None if this is not possible."""
+    try:
+        leaf = ssl.PEM_cert_to_DER_cert(ssl.get_server_certificate((host, 443), timeout=60))
+    except Exception as e:                                  # noqa: BLE001
+        print(f"  {host}: could not read the server certificate ({e})")
+        return None
+    m = re.search(rb"http://[\x21-\x7e]+?\.(?:crt|cer)", leaf)
+    if not m:
+        print(f"  {host}: certificate chain incomplete and no CA Issuers address in the certificate")
+        return None
+    aia = m.group().decode()
+    if not allowed(aia):
+        print(f"  {aia}: excluded or refused ({blocked.get(host_of(aia), 'robots.txt')})")
+        return None
+    r = request(aia)
+    if r is None or len(r) == 1:
+        return None
+    der = r[0]
+    pem = der.decode("ascii") if der.startswith(b"-----BEGIN") else ssl.DER_cert_to_PEM_cert(der)
+    ctx = ssl.create_default_context()                      # system roots, CERT_REQUIRED, check_hostname
+    ctx.load_verify_locations(cadata=pem)
+    assert ctx.verify_mode == ssl.CERT_REQUIRED and ctx.check_hostname
+    print(f"  {host}: chain completed with the intermediate from {aia}")
+    return ctx
+
+
+def load_robots(host, scheme="https"):
     pats, delay, text = [], 0.0, ""
-    with HostLock(host):
-        wait(host)
+    for attempt in (1, 2):
         try:
-            with urllib.request.urlopen(urllib.request.Request(f"https://{host}/robots.txt",
-                                                               headers={"User-Agent": UA}), timeout=60) as r:
-                text = r.read().decode("utf-8", "replace")
-        except urllib.error.HTTPError as e:
-            if e.code in (401, 403, 429):
-                blocked[host] = f"robots.txt answers HTTP {e.code}"
-                print(f"  REFUSED: {host} robots.txt answers HTTP {e.code}; host not used")
+            with HostLock(host):
+                wait(host)
+                with urllib.request.urlopen(urllib.request.Request(f"{scheme}://{host}/robots.txt",
+                                                                   headers={"User-Agent": UA}), timeout=60,
+                                            context=contexts.get(host) if scheme == "https" else None) as r:
+                    text = r.read().decode("utf-8", "replace")
+            break
+        except urllib.error.URLError as e:
+            if (attempt == 1 and scheme == "https" and isinstance(getattr(e, "reason", None),
+                                                                  ssl.SSLCertVerificationError)):
+                ctx = completed_context(host)
+                if ctx:
+                    contexts[host] = ctx
+                    continue
+            if isinstance(e, urllib.error.HTTPError):
+                if e.code in (401, 403, 429):
+                    blocked[host] = f"robots.txt answers HTTP {e.code}"
+                    print(f"  REFUSED: {host} robots.txt answers HTTP {e.code}; host not used")
+            else:
+                blocked[host] = f"robots.txt unreachable: {e}"
+                print(f"  {host}: robots.txt unreachable ({e}); host not used")
+            break
         except Exception as e:                              # noqa: BLE001
             blocked[host] = f"robots.txt unreachable: {e}"
             print(f"  {host}: robots.txt unreachable ({e}); host not used")
+            break
     if re.search(r"<html", text[:2000], re.I):
         if re.search(r"challenge|captcha|just a moment|incapsula", text, re.I):
             blocked[host] = "robots.txt answers with a bot-check page"
@@ -198,7 +320,7 @@ def allowed(url):
     if host in blocked:
         return False
     if host not in rules:
-        load_robots(host)
+        load_robots(host, urllib.parse.urlsplit(url).scheme)
     if host in blocked:
         return False
     p = urllib.parse.urlsplit(quote_url(url))

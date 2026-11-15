@@ -3,6 +3,7 @@
 
     python3 download_tw.py                 # all sources
     python3 download_tw.py nia wda         # only the named sources
+    python3 download_tw.py moj sweep       # also sweep the law database's sitemap (about 260 pages)
 
 Sources (names usable as arguments):
 
@@ -28,6 +29,9 @@ Sources (names usable as arguments):
            /LawClass/LawAll.aspx): the regulations (法規命令) that are in practice the
            working rules for permits, detention and removal, and the work-permit review
            standards. Marked "procedural act".
+           "python3 download_tw.py moj sweep" also walks the database's sitemap through the
+           Ministry of the Interior (D0080...) and cross-strait (Q001/Q002/Q006) classes and
+           keeps immigration titles; its finds of 15 Nov 2026 are pinned in MOJ_EXTRA.
   wayback  A few administrative rules of glrs.moi.gov.tw as archived by the Internet
            Archive in 2018-2022 (older versions; the archive holds few).
 
@@ -43,6 +47,7 @@ import html
 import re
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -67,10 +72,12 @@ MOJ = "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode={}"
 NIA_SKIP = re.compile(r"新住民發展基金|發言人|國家賠償|陳情|檔案申請|通譯|直轄市長|簡任第十職等|個人資料")
 # regulations worth keeping from law.moj.gov.tw (title filter)
 MOJ_KEEP = re.compile(r"(辦法|標準|規則|細則)$")
-MOJ_SKIP = re.compile(r"收費|規費|基金|服制|個人資料|獎勵|補助|安置|申報|公務員|協助辦法|律師")
+MOJ_SKIP = re.compile(r"收費|規費|基金|服制|個人資料|獎勵|補助|安置|申報|公務員|協助辦法|律師|移民業務機構|安全金")
 MOJ_CROSS = re.compile(r"進入臺灣地區|入境|居留|定居|收容|出境|面談|停留|觀光|探親|團聚")
 MOJ_IMMIG = re.compile(r"入出國|移民|外國人|外來人口|大陸地區|香港|澳門|居留|收容|驅逐|強制出|入國|面談|人口販運|無戶籍|查察|暫時留置|戒具")
-MOJ_EXTRA = ["N0090027", "N0090031", "N0090053", "N0090054"]     # work-permit regulations (Ministry of Labor)
+MOJ_EXTRA = ["N0090027", "N0090031", "N0090053", "N0090054",     # work-permit regulations (Ministry of Labor)
+             # found by the optional sitemap sweep of 15 Nov 2026 (python3 download_tw.py moj sweep)
+             "D0080129", "D0080140", "D0080154", "D0080169", "D0080184", "D0080222", "D0080225", "Q0060003"]
 # Ministry of Labor notices to keep
 WDA_KEEP = re.compile(r"審查作業要點|解釋令|核釋")
 WDA_SKIP = re.compile(r"收費標準|第47條")
@@ -105,6 +112,11 @@ GLOSS = [  # (substring of the Chinese title, English gloss); first match wins
     ("第七十四條之一特殊事由", "Standards for recognising special reasons and reducing penalties under art. 74-1 of the Immigration Act"),
     ("受歧視申訴審議小組", "Directions establishing the review panel on discrimination complaints by residents of Taiwan"),
     ("成年子女工作許可申請案件審查作業要點-第3點", "Review directions for work permits of adult children under arts. 15 and 26 of the Foreign Professionals Act: amended points 3 and 4"),
+    ("重大經濟犯罪重大刑事案件", "Standards for refusing or barring entry and exit of nationals suspected of major economic or criminal offences"),
+    ("無戶籍國民停留居留及定居", "Regulations on visits, residence and settlement of nationals without household registration"),
+    ("泰國緬甸地區國軍後裔", "Regulations on residence and settlement of descendants of ROC soldiers stranded in Thailand and Myanmar"),
+    ("外國人申請永久居留無不良素行", "Standards for finding good conduct in foreigners' permanent-residence applications"),
+    ("航班及乘員資料通報", "Regulations on reporting and use of flight and passenger data (API/PNR)"),
     ("外國人停留居留及永久居留辦法", "Regulations governing visiting, residence and permanent residence of foreigners"),
     ("依親居留長期居留或定居許可辦法", "Regulations on dependent residence, long-term residence and settlement of mainland residents in Taiwan"),
     ("無戶籍國民申請入國居留定居", "Regulations on entry, residence and settlement of nationals without household registration"),
@@ -301,6 +313,7 @@ def roc(s):
 
 
 def gloss(*titles):
+    titles = [unicodedata.normalize("NFKC", t) for t in titles]   # some titles use CJK compatibility ideographs
     for key, en in GLOSS:
         if any(key in t for t in titles):
             return en
@@ -645,6 +658,8 @@ def write(run, done):
             r = line.split("\t")
             if r[0] not in rows and (OUT / r[0]).exists():
                 rows[r[0]] = r + [""] * (len(HEAD) - len(r))
+                if not rows[r[0]][5]:
+                    rows[r[0]][5] = gloss(rows[r[0]][1])
     with open(index, "w", encoding="utf-8") as f:
         f.write("\t".join(HEAD) + "\n")
         for k in sorted(rows):

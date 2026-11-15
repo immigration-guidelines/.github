@@ -60,13 +60,16 @@ NJT_DOCS = [
     ("2015-24-B0-8E", "2015-10-15", "ORFK-24-2015_hatarforgalom-ellenorzesi-szabalyzat",
      "24/2015. (X. 15.) ORFK utasítás a Határforgalom-ellenőrzési Szabályzatról", "guidance",
      "ORFK instruction 24/2015 on the Border Traffic Control Rules",
-     "how border police check persons at crossing points: entry conditions of third-country nationals, refusal of entry, "
-     "visas at the border, stamps, SIS/VIS checks, asylum applications at the border"),
+     "how border police check persons at crossing points: thorough checks of third-country nationals, checks of "
+     "persons with EU free-movement rights and their family members, refusal of entry, visas issued at the border, "
+     "entry/exit stamps, database checks"),
     ("2018-36-B0-8E", "2018-06-27", "ORFK-36-2018_illegalis-migracioval-osszefuggo-jogsertesek-kezelese",
      "36/2018. (VI. 27.) ORFK utasítás az illegális migrációval összefüggő jogsértések kezelésével kapcsolatos rendőri feladatok végrehajtására",
      "guidance",
      "ORFK instruction 36/2018 on carrying out police tasks in handling offences connected with illegal migration",
-     "apprehension, identification, screening and transfer of irregular migrants; hand-over to the aliens-policing authority"),
+     "which offences count (smuggling, facilitating illegal stay, document fraud, sham family ties, illegal employment of "
+     "third-country nationals, unlawful border crossing) and what border and other police units do: detection, "
+     "turning back at crossing points, the inland 'illegal migration filter net', reporting and cooperation"),
     ("2023-4-B0-8E", "2023-02-24", "ORFK-4-2023_schengeni-informacios-rendszer-talalat-eljaras",
      "4/2023. (II. 24.) ORFK utasítás a Schengeni Információs Rendszerben elért találat esetén követendő eljárásról",
      "guidance",
@@ -102,8 +105,9 @@ NOT_FETCHED = [
      "(page given)"),
     ("Konzuli/vízumügyi belső utasítások a külképviseletek részére (visa-handling instructions of the Ministry of "
      "Foreign Affairs and Trade to consulates)", "", "https://njt.jog.gov.hu/",
-     "not published: KKM instructions in the Hivatalos Értesítő concern organisation, seals and courier service; no "
-     "visa-handling instruction was found"),
+     "not found: the KKM instructions in the Hivatalos Értesítő that surfaced (issuer code B0-6Q on njt) concern "
+     "organisation, seals and courier service; the series was not walked number by number, so a published visa "
+     "instruction cannot be ruled out. Consular visa instructions are normally internal"),
     ("Kormányhivatalok / foglalkoztatás-felügyeleti hatóság belső eljárásrendje a harmadik országbeli munkavállalók "
      "munkaerőpiaci vizsgálatáról (government offices' internal rules on the labour-market check in single-permit and "
      "guest-worker cases)", "", "https://kormanyhivatalok.hu/",
