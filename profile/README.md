@@ -54,7 +54,7 @@ Repositories by region. "Nothing obtainable" is a finding too: it means the auth
 | [cl](https://github.com/immigration-guidelines/cl) | Chile | 80 | – |  |
 | [co](https://github.com/immigration-guidelines/co) | Colombia | 95 | – |  |
 | [cr](https://github.com/immigration-guidelines/cr) | Costa Rica | 153 | – |  |
-| [ec](https://github.com/immigration-guidelines/ec) | Ecuador | 23 | – | download in progress |
+| [ec](https://github.com/immigration-guidelines/ec) | Ecuador | – | – | download in progress |
 | [mx](https://github.com/immigration-guidelines/mx) | Mexico | 19 | – |  |
 | [pa](https://github.com/immigration-guidelines/pa) | Panama | 43 | – |  |
 | [py](https://github.com/immigration-guidelines/py) | Paraguay | 24 | – |  |
