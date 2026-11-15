@@ -10,7 +10,8 @@ The documents are not here. Each jurisdiction has its own repository, listed on 
 |---|---|
 | [`MISSING.md`](MISSING.md) | What could not be obtained for each jurisdiction, why, and how to get it by hand |
 | `download.py` | Netherlands (circular, work instructions), Denmark, United Kingdom (guidance and country notes) |
-| `download_<code>.py` | One script for each other jurisdiction: `at` `be` `ca` `ch` `de` `es` `eu` `fi` `fr` `it` `lu` `no` `nz` `pt` `se` `us` |
+| `download_<code>.py` | One script for each other jurisdiction, named by its two-letter code |
+| `download_<code>_<layer>.py` | Sub-national or extra layers: `ch_cantons`, `ca_provinces`, `be_regions`, `de_federal`, `ca_irb`, `uk_tribunal`, and `<code>_labour` for labour authorities |
 | `download_coi_central.py` | Country-of-origin reports: Germany, Netherlands, Belgium, Austria, Switzerland |
 | `download_coi_eu_nordic.py` | Country-of-origin reports: EU asylum agency, Norway, Sweden, Denmark, Finland |
 | `download_coi_overseas.py` | Country-of-origin reports: Canada, United States |

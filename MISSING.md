@@ -1,10 +1,15 @@
 # What could not be downloaded, and how to get it
 
+> **Since 15 November 2026** each jurisdiction's repository carries its own `NOTES.txt` and `not-obtained.tsv`, which are the up-to-date record of what is missing there and why. This file covers the first 20 jurisdictions collected on 14 November and is no longer updated country by country.
+
+
 Status as of 14 November 2026, 17:30. Final update 14 November 2026, 22:50: all downloads finished.
+
+Update, 15 November 2026, 09:30. A real browser (headless Chromium driven over the DevTools protocol) was used to fetch sources that refuse Python's HTTP client as a bot: New Zealand's circular search, Norway's current guidelines, Spain's ministry site, and Australia's foreign affairs department. Results: Spain is now complete apart from one dead link; Norway's current guidelines are nearly complete; New Zealand's circulars are complete for what the site lists; 23 Australian country reports were added; the Swedish scan was extended back to 2020 (+23 documents); the 252 USCIS policy-alert PDFs were added; and two Schleswig-Holstein decrees were added. The sections below have been updated.
 
 Everything here was left out for one of four reasons:
 
-- **Blocked:** the site refuses automated requests (bot check, rate limit, or a robots.txt rule). These were not worked around, except in Belgium, where the gazette's rate limit was retried slowly even though its robots.txt disallows the pages (see below). A person using a browser is a normal visitor, so downloading by hand is fine.
+- **Blocked:** the site refuses Python's HTTP client (bot check, rate limit, or a robots.txt rule). On 14 November these were not worked around, except in Belgium, where the gazette's rate limit was retried slowly even though its robots.txt disallows the pages (see below). A person using a browser is a normal visitor, so downloading by hand is fine. On 15 November several of these sites were read with a headless browser acting as a normal visitor; where that succeeded, the section below says so.
 - **Gone:** the link is dead or the file was never in the archive.
 - **Not published:** the authority does not make the document public.
 - **Skipped on purpose:** too large or out of scope; a command is given to fetch it.
@@ -79,11 +84,11 @@ Not published at all: the Immigration Office's instructions to municipalities ("
 
 ---
 
-## France: 55 texts missing (blocked or gone)
+## France: 53 texts missing (blocked or gone)
 
-Saved: 364 documents from the GISTI archive. The three official sites (Légifrance, immigration.interieur.gouv.fr, the ministry's Bulletin officiel) all answer scripts with a bot check.
+Saved: 366 documents. Most come from the GISTI archive; two were fetched from the official sites on 15 November (the 2013 circular on domiciliation in prison and the 2023 circular on nationality procedure). The three official sites (Légifrance, immigration.interieur.gouv.fr, the ministry's Bulletin officiel) still answer scripts with a bot check.
 
-The list is in `fr/not-downloaded.tsv`, with topic, title, date, the GISTI page and the reason. Asylum accounts for 24 and removal for 11. For each:
+The list is in `fr/not-downloaded.tsv`, with topic, title, date, the GISTI page and the reason. Asylum accounts for 24 and removal for 11. Of the remaining 53, twelve name an official PDF that is dead, forbidden, or behind a bot check; the rest are text-only on GISTI. For each:
 
 1. Open the GISTI page given in the list; it links to the official address.
 2. If that address is dead, search Légifrance's circulars section (`https://www.legifrance.gouv.fr/circulaire`) in a browser for the NOR number in the title.
@@ -103,7 +108,7 @@ Also not covered: circulars that GISTI never indexed. Légifrance is the officia
 
 ## Sweden
 
-- **Position papers last revised before July 2023 (not fetched):** the scan covers July 2023 to November 2026 and saved 90 files (89 documents). The database forbids scripted use of its search, so the script reads document pages one number at a time. The database keeps only the latest version of each paper: 79 of the 80 saved from 2026 are reissued versions, many of papers first issued in 2020–2021, which is why only 9 documents date from July 2023 to December 2025. Papers still in force that have not been revised since mid-2023 need a deeper scan: `python3 download_se.py --low 44000` reaches about 2020 (roughly 3,500 more pages; about 1.5 hours on a fast connection, far longer on a slow one). Superseded versions are not in the database at all.
+- **Position papers last revised before July 2023: now fetched.** The first scan covered July 2023 to November 2026 and saved 90 files. A deeper scan on 15 November (`python3 download_se.py --low 44000`) walked every document number down to 44000, about 2020, and added 23 documents; `se/` now holds 113 files and covers papers issued from 2020 onwards. The database forbids scripted use of its search, so the script reads document pages one number at a time. The database keeps only the latest version of each paper, so superseded versions are not in the database at all; papers first issued before 2020 sit at lower numbers and have not been looked at.
 - **Handbook for migration cases (gone):** no longer published. Archived copies from 2015–2017 exist in the Wayback Machine, which refused scripted requests on the day; open `https://web.archive.org/web/2017*/migrationsverket.se/*handbok*` in a browser.
 - **RS/043/2021 version 2.0 on Dublin (not published):** listed without an attachment.
 - By hand, the database search works in a browser: `https://lifos.migrationsverket.se`, subject "Rättsliga ställningstaganden och kommentarer".
@@ -112,18 +117,18 @@ Save into `se/`, then `python3 download_se.py --index-only`.
 
 ---
 
-## Norway: current versions not guaranteed (blocked)
+## Norway: current guidelines nearly complete
 
-`udiregelverk.no` answers scripts with a bot check, and the Wayback Machine refused requests. The documents are taken from Common Crawl's public archive instead, so each is the newest copy a crawler happened to capture, which may not be the current version, and anything never crawled is absent.
+`udiregelverk.no` answers scripts with a bot check. The older copies were taken from Common Crawl's public archive, so each was the newest copy a crawler happened to capture. On 15 November a headless browser passed the site's bot check: the listing was loaded (all 291 results after clicking "show more") and 106 guideline pages that were missing were saved from the live site. `no/index.tsv` marks them `live (browser)`.
 
-Saved: 872 pages.
+Saved: 978 pages.
 
-- **Current guidelines: about 125 of 300 missing.** 175 main guidelines and 59 attachments were captured (2024–2026 copies); the site's own listing counts 300.
+- **Current guidelines: about 10 of 291 missing.** The browser pass added 106 pages; 281 unique guideline IDs are now present. The remainder failed to load or are 404. Attachments linked from the guidelines are still only the 59 captured earlier.
 - **Older layout: near complete, but old.** About 310 circulars (RS), 190 internal notices (IM) and 61 practice notes (PN), mostly as they stood in 2019. Many are predecessors of today's guidelines, so the two sets overlap with older text.
-- **Nothing captured between 2020 and late 2024.**
+- **Nothing captured between 2020 and late 2024** in the Common Crawl material; the browser pass fills the current set, not the gap in historical copies.
 - **Skipped on purpose:** laws, ministry circulars and instructions, court decisions, international sources, and the English translations.
 
-To fill the gap or replace an old copy: open `https://www.udiregelverk.no/rettskilder/udi-retningslinjer/` in a browser and save each page into `no/` under the naming used there. `no/index.tsv` gives the capture date of each saved copy. A later `python3 download_no.py` retries the few archive indexes that timed out; `--reindex` re-asks crawls that returned nothing.
+Any remaining page can be saved from `https://www.udiregelverk.no/rettskilder/udi-retningslinjer/` in a browser, under the naming used there. `no/index.tsv` gives the source and capture date of each saved copy; `live (browser)` means it came from the site itself. `python3 download_no.py` retries the few Common Crawl indexes that timed out; `--reindex` re-asks crawls that returned nothing, and the script keeps the browser-saved rows when it rewrites the index.
 
 ---
 
@@ -138,7 +143,7 @@ Guidance and country notes are otherwise complete: 635 and 177 files, no failure
 
 ## United States
 
-- **259 policy-alert PDFs (skipped on purpose):** linked from `us/uscis-policy-manual/updates.html`. The manual itself is complete.
+- **Policy-alert PDFs: now fetched.** The 252 PDFs linked from `us/uscis-policy-manual/updates.html` are in `us/uscis-policy-manual/policy-alerts/`; `python3 download_us.py alerts` refreshes them from that list. (Seven further links on the page point to Federal Register notices on govinfo.gov and were left out.) The manual itself is complete.
 - **15 sections of 9 FAM (not published):** titled "UNAVAILABLE" by the State Department.
 - **One chapter of the retired field manual (gone):** `afm61-external.pdf` redirects to a "superseded" page.
 
@@ -151,17 +156,15 @@ Guidance and country notes are otherwise complete: 635 and 177 files, no failure
 
 ---
 
-## Spain: 88 items missing (blocked)
+## Spain: complete apart from one dead link
 
-Saved: 76 files. 57 of 65 instructions (2006–2026), 8 of 10 management criteria (2025), and 4 pages plus 7 PDFs from the large-companies unit (UGE). No information sheets (hojas informativas) at all.
+`inclusion.gob.es` answers Python's HTTP client with 403 "Acceso denegado", and the Internet Archive had begun answering 429. On 15 November the site was crawled with a headless browser instead, which it serves normally, and every listing and document was fetched from the live site.
 
-- **Why:** `inclusion.gob.es` answers every scripted request with 403 "Acceso denegado", so everything came from Internet Archive copies, and the archive then began answering 429. Three related sites failed certificate checks and were left alone.
-- **Missing instructions:** SGIE 1/2016, 1/2015, 5/2013, DGI 7/2011, 6/2008, 1/2008, 6/2007, 5/2006, and the 2019 Venezuela instruction (arrived truncated).
-- **Missing from the UGE:** the Spanish version of management criterion DGGM 2-2026 (the English one is saved) and every per-permit page, including highly qualified workers and the EU Blue Card.
-- **Missing information sheets:** all 37 found so far; 20 of 36 category pages were never read, so there are more.
-- **By hand:** `es/index.tsv` lists all 165 known items; the 88 not obtained have an empty file column and their address. Open each in a browser from `https://www.inclusion.gob.es/web/migraciones/instrucciones`, `/web/migraciones/hojas-informativas` and `/web/unidadgrandesempresas`, and save into the matching folder under `es/`. Ignore the few UGE application forms in the list.
-- **Later re-run:** `python3 download_es.py` once the archive stops refusing; `--index` rebuilds the index without network.
-- **Scans:** 27 of the 72 PDFs are images with no text layer, so they cannot be searched without OCR.
+Saved: 204 index rows and 199 files: 66 instructions (2006–2026), 11 management criteria, 66 information sheets, and 55 pages/documents from the large-companies unit (UGE), including the Spanish version of DGGM 2-2026 and the per-permit pages.
+
+- **Still missing:** one category page, "Aplicable la Situación Nacional de Empleo", is a genuine 404 on the site. A handful of UGE application forms were left out on purpose.
+- **Scans:** some of the older PDFs are images with no text layer, so they cannot be searched without OCR.
+- **Re-run:** `python3 download_es.py` uses the live site first; with the browser wrapper it fills any new item. `--index` rebuilds the index without network.
 
 ---
 
@@ -171,15 +174,13 @@ Saved: 76 files. 57 of 65 instructions (2006–2026), 8 of 10 management criteri
 
 ---
 
-## New Zealand: recent circulars missing (blocked)
+## New Zealand: circulars now complete for what the site lists
 
-The Operational Manual is complete (1,559 current topics). The circulars come from the Internet Archive and are partial: 154 amendment circulars (2015–2026) and 96 internal administration circulars (2008–2023).
+The Operational Manual is complete (1,559 current topics). The first collection took circulars from the Internet Archive and was partial: 154 amendment circulars and 96 internal administration circulars. On 15 November the site's own search (`/search/?topic_ids=12` and `?topic_ids=8`, which shows a bot check to scripts) was read in a headless browser, page by page, and every listed PDF was downloaded: 412 amendment circulars and 101 internal administration circulars.
 
-- **Amendment circulars after early 2021:** thin. 15 for 2021, 12 for 2022, 4 for 2023, 2 for 2024, 1 for 2025, 5 for 2026.
-- **Internal administration circulars 2018–2026:** mostly missing; only one from 2019 and one from 2023.
-- **Why:** Immigration New Zealand lists circulars only through its site search, which shows a bot check, and its search API is disallowed by robots.txt.
-- **By hand:** open `https://www.immigration.govt.nz/search/?topic_ids=12` (amendment circulars) and `?topic_ids=8` (internal administration circulars) in a browser and save the PDFs into `nz/amendment-circulars/` or `nz/internal-administration-circulars/`.
-- **Dates:** the dates in `nz/index.tsv` for circulars are the archive's capture dates, not issue dates.
+- **Remaining gaps:** only circulars the site does not list at all, for example ones withdrawn before its search index begins. Its search covers 412 amendment results; all were fetched.
+- **Dates:** for the circulars fetched on 15 November (marked with a live source address in `nz/index.tsv`) the date is the issue date shown by the search result. Older rows carry the archive's capture date.
+- **Re-run:** open the two search addresses in a browser and add any new PDFs; `python3 download_nz.py circulars` re-checks the Internet Archive for pages the live site no longer lists.
 - **Superseded instructions (skipped on purpose):** 4,527 past versions of manual topics, listed in `nz/manual/toc.json`.
 - **Visa Paks (skipped on purpose):** the "advice to immigration staff" series.
 
@@ -187,16 +188,11 @@ The Operational Manual is complete (1,559 current topics). The circulars come fr
 
 ## German states (other than Berlin)
 
-Saved: 809 documents, 376 MB, from the federal level and twelve states; `de/index.tsv` matches the folders. Per source: Baden-Württemberg 258, Lower Saxony 208, North Rhine-Westphalia 80, Hamburg 59, Brandenburg 45, federal 43, Thuringia 37, Bremen 24, Schleswig-Holstein 24, Rhineland-Palatinate 16, Saxony 8, Bavaria 5, Hesse 2.
+Saved: 812 documents, from the federal level and twelve states; `de/index.tsv` matches the folders. Per source: Baden-Württemberg 258, Lower Saxony 208, North Rhine-Westphalia 80, Hamburg 59, Brandenburg 45, federal 43, Thuringia 37, Schleswig-Holstein 27, Bremen 24, Rhineland-Palatinate 16, Saxony 8, Bavaria 5, Hesse 2.
 
 Not obtained:
 
-- **Schleswig-Holstein, 3 decrees (connection resets).** Under `https://www.schleswig-holstein.de/DE/fachinhalte/I/integration/_downloads/erlasse/`:
-  - 9 November 2023, Ukraine residence continuation regulation, information for immigration offices: `2023/231109_UkraineAufenthFGV_Info_der_ZBHen`
-  - 12 October 2022, EU Council implementing decision 2022/382: `2022/221012_ukr_erlass_durchfuehrungsbeschluss_eu_rat`
-  - 12 October 2018, family reunification with beneficiaries of subsidiary protection (§ 36a): `2018/181012_36a_AufenthG_Prueungsumfang_subs.Schutz`
-
-  Open them from `https://www.schleswig-holstein.de/DE/fachinhalte/I/integration/erlasse.html` in a browser and save into `de/sh/`, or retry on another day with `python3 download_de.py sh`. The server reset connections intermittently on 14 November; one retry eventually saved the 31 May 2023 decree.
+- **Schleswig-Holstein: the decrees that refused on 14 November are now saved.** The server resets connections intermittently; on 15 November, after a pause, the 9 November 2023 decree (`2023/231109_UkraineAufenthFGV_Info_der_ZBHen`) and the 12 October 2018 one (`2018/181012_36a_AufenthG_Prueungsumfang_subs.Schutz`) were fetched and added to `de/sh/`. The third, `2022/221012_ukr_erlass_durchfuehrungsbeschluss_eu_rat`, was listed with a misspelling: the real path is `..._durchfuehungsbeschluss_...`, and that decree (EU Council implementing decision 2022/382) was already saved. Retry with `python3 download_de.py sh` on another day if more appear.
 - **Schleswig-Holstein, one decree with no file of its own:** 22 November 2021, Afghanistan no. 3 (`2021/211122_afghanistan_nr3_aufenthaltsrechtliche_regel`). It was byte-identical to another saved decree and was removed as a duplicate; worth checking in a browser which of the two the state's page really intends.
 - **Thuringia, 3 decrees.** The list comes from an Internet Archive snapshot of the Thuringian refugee council's index dated 16 June 2026, because the live site served only a placeholder (46 listed, 37 saved, 6 filtered out as benefits or logistics). Not in the archive: 21 January 2026 (recognition of Eritrean passports) and 10 December 2025 (switch from § 23(1) to §§ 18a/18b). Held only truncated: 7 June 2019 (guidance on § 25b). Decrees issued after June 2026 are not covered. Try `https://www.fluechtlingsrat-thr.de/arbeitshilfen/gesetze-verordnungen-u-erlasse` in a browser.
 - **Bavaria, 2 of 7.** The ministry's relaunched site dropped its letters, so they come from the Internet Archive. No capture: 8 March 2019 guidance on the preliminary rule for the employment toleration permit. Truncated capture: the 13 July 2020 version of the employment guidance.
@@ -262,7 +258,7 @@ Each country's reports are in that country's folder, under `coi/` (for example `
 
 - **Netherlands:** see above.
 - **Austria:** see above.
-- **Australia (blocked): nothing saved.** `dfat.gov.au` resets every scripted connection, including for its robots.txt. Open `https://www.dfat.gov.au/about-us/publications/country-information-reports` in a browser; there is one current PDF per country, a few dozen in all. Save into `au/coi/`. Archive copies (for example the National Library of Australia's web archive) were not tried.
+- **Australia: now saved.** `dfat.gov.au` resets every scripted connection, including for its robots.txt, but a headless browser loaded the page normally on 15 November. All 23 PDFs on `https://www.dfat.gov.au/about-us/publications/country-information-reports` were downloaded into `au/coi/`: 22 country information reports dated July 2023 to September 2026 and one thematic report on Hong Kong. The listing is the department's own current set; withdrawn older reports are available only on request (`CIS@dfat.gov.au`).
 - **Canada: complete for what is online.** 692 responses to information requests (January 2019 to October 2026) and the current document list for 187 countries. The board keeps only seven years online; older responses are on ecoi.net. 1,641 older versions of the document lists were skipped on purpose.
 - **United States:** human rights reports for 2022–2024 and religious freedom reports for 2023, as web pages. Six pages are dead links on the State Department's own site: 2024 Argentina, Colombia, Côte d'Ivoire, Mongolia, Romania; 2023 Burma. Earlier editions and the PDF versions were skipped on purpose.
 - **Limit raised on 14 November, 17:46:** from 500 MB / 1,500 files to 3 GB / 6,000 files per source (`MAX_BYTES` / `MAX_FILES` in `download_coi_central.py`; `--max-mb` / `--max-files` for `download_coi_eu_nordic.py`). Results:
@@ -278,17 +274,18 @@ Each country's reports are in that country's folder, under `coi/` (for example `
 
 ## Status
 
-All downloads had finished by 14 November 2026, 22:50. Nothing is running.
+All downloads had finished by 15 November 2026, 09:30. Nothing is running.
 
 ## Worth re-running later
 
-The connection dropped several times during the afternoon, and each drop cost the running scripts a few files. Every script skips what it already has, so a second run only fills holes:
+Every script skips what it already has, so a second run only fills holes:
 
 ```
 cd /home/brinly/immigration-guidelines
 python3 download_de.py sh                  # Schleswig-Holstein leftovers, on another day
-python3 download_es.py                     # Spain, once the Internet Archive stops refusing
-python3 download_no.py                     # Norway, retries archive indexes that timed out
+python3 download_es.py                     # Spain, picks up anything new on the site
+python3 download_no.py                     # Norway, retries Common Crawl indexes that timed out
+python3 download_us.py alerts              # USCIS policy-alert PDFs added to the Updates list
 ```
 
-A re-run will not help where a site refuses scripts outright (France's official sites, Spain's ministry, Norway's rules site, Australia's foreign affairs department, Italy's State Police, the Dutch open.overheid.nl document store); those need a browser.
+The Dutch open.overheid.nl document store was still answering HTTP 500 to its own document addresses on 15 November (its front page answers normally); the ~150 missing country reports need `python3 -B download_coi_central.py nl` once that is fixed. France's official sites, Italy's State Police, and the Dutch IND's PUC portal still need a person using a browser (or the same browser-driven approach used on 15 November).

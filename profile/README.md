@@ -1,29 +1,72 @@
 # Immigration guidelines
 
-The guidance that immigration authorities publish for their own case officers, collected in November 2026 for 19 jurisdictions and the EU, together with the country-of-origin reports several of them publish. Each jurisdiction has its own repository; the files are unmodified copies of what the authority published.
+The guidance that immigration authorities publish for their own case officers, collected from November 2026 for jurisdictions worldwide, together with the country-of-origin reports several of them publish. Each jurisdiction has its own repository; the files are unmodified copies of what the authority published.
 
-| Repository | Jurisdiction | Guidance files | Country-of-origin reports |
-|---|---|---|---|
-| [at](https://github.com/immigration-guidelines/at) | Austria | 4 | 331 |
-| [au](https://github.com/immigration-guidelines/au) | Australia | – | 23 |
-| [be](https://github.com/immigration-guidelines/be) | Belgium | 181 | 444 |
-| [ca](https://github.com/immigration-guidelines/ca) | Canada | 1,572 | 879 |
-| [ch](https://github.com/immigration-guidelines/ch) | Switzerland | 331 | 148 |
-| [de](https://github.com/immigration-guidelines/de) | Germany (federal and states) | 892 | 868 |
-| [dk](https://github.com/immigration-guidelines/dk) | Denmark | 64 | 266 |
-| [es](https://github.com/immigration-guidelines/es) | Spain | 119 | – |
-| [eu](https://github.com/immigration-guidelines/eu) | European Union | 163 | 419 |
-| [fi](https://github.com/immigration-guidelines/fi) | Finland | 20 | 3,632 |
-| [fr](https://github.com/immigration-guidelines/fr) | France | 364 | – |
-| [it](https://github.com/immigration-guidelines/it) | Italy | 305 | – |
-| [lu](https://github.com/immigration-guidelines/lu) | Luxembourg | 19 | – |
-| [nl](https://github.com/immigration-guidelines/nl) | Netherlands | 292 | 65 |
-| [no](https://github.com/immigration-guidelines/no) | Norway | 872 | 1,167 |
-| [nz](https://github.com/immigration-guidelines/nz) | New Zealand | 1,822 | – |
-| [pt](https://github.com/immigration-guidelines/pt) | Portugal | 341 | – |
-| [se](https://github.com/immigration-guidelines/se) | Sweden | 103 | 119 |
-| [uk](https://github.com/immigration-guidelines/uk) | United Kingdom | 635 | 177 |
-| [usa](https://github.com/immigration-guidelines/usa) | United States | 346 | 770 |
+Repositories by region. "Nothing obtainable" is a finding too: it means the authority publishes nothing for its officers, or that its sites refuse automated access; the repository's `NOTES.txt` says which, and lists what is known to exist.
+
+### Europe
+
+| Repository | Jurisdiction | Guidance files | Country-of-origin reports | Note |
+|---|---|---|---|---|
+| [at](https://github.com/immigration-guidelines/at) | Austria | 4 | 331 |  |
+| [be](https://github.com/immigration-guidelines/be) | Belgium | 183 | 444 | federal; `regions/` for work permits |
+| [cy](https://github.com/immigration-guidelines/cy) | Cyprus | – | – | nothing obtainable; see NOTES |
+| [cz](https://github.com/immigration-guidelines/cz) | Czech Republic | 49 | – |  |
+| [dk](https://github.com/immigration-guidelines/dk) | Denmark | 64 | 266 |  |
+| [ee](https://github.com/immigration-guidelines/ee) | Estonia | 11 | – |  |
+| [eu](https://github.com/immigration-guidelines/eu) | European Union | 163 | 419 |  |
+| [fi](https://github.com/immigration-guidelines/fi) | Finland | 20 | 3,632 |  |
+| [fr](https://github.com/immigration-guidelines/fr) | France | 363 | – |  |
+| [de](https://github.com/immigration-guidelines/de) | Germany | 948 | 868 | federal and 13 states; `berlin/` holds every VAB version |
+| [gr](https://github.com/immigration-guidelines/gr) | Greece | 226 | – |  |
+| [is](https://github.com/immigration-guidelines/is) | Iceland | 21 | – |  |
+| [ie](https://github.com/immigration-guidelines/ie) | Ireland | 176 | 931 |  |
+| [it](https://github.com/immigration-guidelines/it) | Italy | 305 | – |  |
+| [lt](https://github.com/immigration-guidelines/lt) | Lithuania | 37 | – |  |
+| [lu](https://github.com/immigration-guidelines/lu) | Luxembourg | 19 | – |  |
+| [mt](https://github.com/immigration-guidelines/mt) | Malta | – | – | nothing obtainable; see NOTES |
+| [nl](https://github.com/immigration-guidelines/nl) | Netherlands | 292 | 65 |  |
+| [no](https://github.com/immigration-guidelines/no) | Norway | 872 | 1,167 |  |
+| [pt](https://github.com/immigration-guidelines/pt) | Portugal | 341 | – |  |
+| [es](https://github.com/immigration-guidelines/es) | Spain | 119 | – |  |
+| [se](https://github.com/immigration-guidelines/se) | Sweden | 113 | 119 |  |
+| [ch](https://github.com/immigration-guidelines/ch) | Switzerland | 406 | 148 | federal directives; `cantons/` for 11 cantons |
+| [uk](https://github.com/immigration-guidelines/uk) | United Kingdom | 635 | 177 |  |
+
+### Americas
+
+| Repository | Jurisdiction | Guidance files | Country-of-origin reports | Note |
+|---|---|---|---|---|
+| [ca](https://github.com/immigration-guidelines/ca) | Canada | 1,812 | 879 | federal; `provinces/` incl. Quebec's procedures guide |
+| [cl](https://github.com/immigration-guidelines/cl) | Chile | 80 | – |  |
+| [co](https://github.com/immigration-guidelines/co) | Colombia | 95 | – |  |
+| [usa](https://github.com/immigration-guidelines/usa) | United States | 436 | 770 |  |
+
+### Asia and Pacific
+
+| Repository | Jurisdiction | Guidance files | Country-of-origin reports | Note |
+|---|---|---|---|---|
+| [au](https://github.com/immigration-guidelines/au) | Australia | – | 23 | guidance is paywalled; contributions welcome |
+| [id](https://github.com/immigration-guidelines/id) | Indonesia | – | – | nothing obtainable; see NOTES |
+| [jp](https://github.com/immigration-guidelines/jp) | Japan | 578 | – |  |
+| [nz](https://github.com/immigration-guidelines/nz) | New Zealand | 1,821 | – |  |
+| [ph](https://github.com/immigration-guidelines/ph) | Philippines | 56 | – |  |
+| [kr](https://github.com/immigration-guidelines/kr) | South Korea | 208 | – |  |
+| [th](https://github.com/immigration-guidelines/th) | Thailand | – | – | nothing obtainable; see NOTES |
+
+### Middle East and Africa
+
+| Repository | Jurisdiction | Guidance files | Country-of-origin reports | Note |
+|---|---|---|---|---|
+| [gh](https://github.com/immigration-guidelines/gh) | Ghana | 3 | – |  |
+| [il](https://github.com/immigration-guidelines/il) | Israel | 509 | – |  |
+| [ke](https://github.com/immigration-guidelines/ke) | Kenya | 2 | – |  |
+| [ng](https://github.com/immigration-guidelines/ng) | Nigeria | 2 | – |  |
+| [rw](https://github.com/immigration-guidelines/rw) | Rwanda | 3 | – |  |
+| [za](https://github.com/immigration-guidelines/za) | South Africa | 38 | – |  |
+| [tr](https://github.com/immigration-guidelines/tr) | Turkey | 11 | – |  |
+
+More jurisdictions are being added.
 
 ## How to use a repository
 
