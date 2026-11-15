@@ -9,7 +9,7 @@ The guidance that immigration authorities publish for their own case officers, c
 | [be](https://github.com/immigration-guidelines/be) | Belgium | 181 | 444 |
 | [ca](https://github.com/immigration-guidelines/ca) | Canada | 1,572 | 879 |
 | [ch](https://github.com/immigration-guidelines/ch) | Switzerland | 331 | 148 |
-| [de](https://github.com/immigration-guidelines/de) | Germany (federal and states) | 813 | 868 |
+| [de](https://github.com/immigration-guidelines/de) | Germany (federal and states) | 892 | 868 |
 | [dk](https://github.com/immigration-guidelines/dk) | Denmark | 64 | 266 |
 | [es](https://github.com/immigration-guidelines/es) | Spain | 119 | – |
 | [eu](https://github.com/immigration-guidelines/eu) | European Union | 163 | 419 |
@@ -25,17 +25,11 @@ The guidance that immigration authorities publish for their own case officers, c
 | [uk](https://github.com/immigration-guidelines/uk) | United Kingdom | 635 | 177 |
 | [usa](https://github.com/immigration-guidelines/usa) | United States | 346 | 770 |
 
-## Berlin
-
-The Berlin immigration office's guidance (Verfahrenshinweise zum Aufenthalt in Berlin, VAB) has a version history, so it is kept in two places:
-
-- [de, folder `berlin/`](https://github.com/immigration-guidelines/de/tree/main/berlin): the source PDF of every known version from 2007 to 2026.
-- [berlin_vab](https://github.com/immigration-guidelines/berlin_vab): the text of those versions, one commit and one tag per version, so changes can be read as diffs.
-
 ## How to use a repository
 
 - `index.tsv` lists every file with its title, date and source address.
 - Country-of-origin reports are in the `coi/` folder, with their own `coi/index.tsv`.
+- Where a text has many versions, the versions are kept too. For Germany, the `berlin/` folder of `de` holds every known version of the Berlin office's guidance since 2007, and [berlin_vab](https://github.com/immigration-guidelines/berlin_vab) holds their text as a history that can be read as diffs.
 - Counts above are as committed; some collections are partial. [MISSING.md](https://github.com/immigration-guidelines/.github/blob/main/MISSING.md) says, country by country, what could not be obtained, why, and how to get it by hand.
 
 ## How it was collected
