@@ -1,0 +1,24 @@
+# country folders are separate repositories
+/at/
+/au/
+/be/
+/ca/
+/ch/
+/de/
+/dk/
+/es/
+/eu/
+/fi/
+/fr/
+/it/
+/lu/
+/nl/
+/no/
+/nz/
+/pt/
+/se/
+/uk/
+/us/
+__pycache__/
+*.log
+logs/
