@@ -27,10 +27,10 @@ The guidance that immigration authorities publish for their own case officers, c
 
 ## Berlin
 
-The Berlin immigration office's guidance (Verfahrenshinweise zum Aufenthalt in Berlin, VAB) is kept separately because it has a version history:
+The Berlin immigration office's guidance (Verfahrenshinweise zum Aufenthalt in Berlin, VAB) has a version history, so it is kept in two places:
 
-- [berlin_vab](https://github.com/immigration-guidelines/berlin_vab): the text of every known version since 2007, one commit and one tag per version, so changes can be read as diffs.
-- [vabpdfs](https://github.com/immigration-guidelines/vabpdfs): the source PDFs.
+- [de, folder `berlin/`](https://github.com/immigration-guidelines/de/tree/main/berlin): the source PDF of every known version from 2007 to 2026.
+- [berlin_vab](https://github.com/immigration-guidelines/berlin_vab): the text of those versions, one commit and one tag per version, so changes can be read as diffs.
 
 ## How to use a repository
 

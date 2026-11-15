@@ -241,7 +241,15 @@ def main():
         rec = f"https://data.commoncrawl.org/{r['filename']}#bytes={r['offset']}+{r['length']}"
         lines.append("\t".join([dest.name, title.replace("\t", " "), date, r["url"],
                                 f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}", rec]))
-    (OUT / "index.tsv").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    # keep rows for pages saved outside Common Crawl (e.g. fetched in a browser)
+    listed = {line.split("\t", 1)[0] for line in lines[1:]}
+    index = OUT / "index.tsv"
+    if index.exists():
+        for line in index.read_text(encoding="utf-8").splitlines()[1:]:
+            cols = line.split("\t")
+            if len(cols) == 6 and cols[0] not in listed and (OUT / cols[0]).exists():
+                lines.append(line)
+    index.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"{len(lines) - 1} documents listed in {OUT / 'index.tsv'}, {total / 1e6:.1f} MB")
 
 
