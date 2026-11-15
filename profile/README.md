@@ -29,7 +29,7 @@ The guidance that immigration authorities publish for their own case officers, c
 
 - `index.tsv` lists every file with its title, date and source address.
 - Country-of-origin reports are in the `coi/` folder, with their own `coi/index.tsv`.
-- Where a text has many versions, the versions are kept too. For Germany, the `berlin/` folder of `de` holds every known version of the Berlin office's guidance since 2007, and [berlin_vab](https://github.com/immigration-guidelines/berlin_vab) holds their text as a history that can be read as diffs.
+- Germany includes Berlin: the `berlin/` folder of `de` holds every known version of the Berlin office's guidance since 2007, and [berlin_vab](https://github.com/immigration-guidelines/berlin_vab) holds their text as a history that can be read as diffs.
 - Counts above are as committed; some collections are partial. [MISSING.md](https://github.com/immigration-guidelines/.github/blob/main/MISSING.md) says, country by country, what could not be obtained, why, and how to get it by hand.
 
 ## How it was collected
